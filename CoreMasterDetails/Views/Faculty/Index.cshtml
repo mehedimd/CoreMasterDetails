@@ -1,0 +1,83 @@
+﻿@model IEnumerable<CoreMasterDetails.Models.Faculty>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FacultyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PicPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FacultyName)
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseStartDate)
+            </td>
+            <td>
+                    @if (item.PicPath != null)
+                    {
+                        <img src="@Url.Content(item.PicPath)" class="img-fluid" width="90" />
+                    }
+            </td>
+            <td>
+                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.ID">Edit</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+            <tr>
+                <td colspan="6">
+                    <table class="table table-bordered">
+                        <thead class="bg-danger">
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-danger bg-opacity-50">
+                            @foreach (var it in item.Students)
+                            {
+                                <tr>
+                                    <td>@it.StudentName</td>
+                                    <td>@it.Address</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+}
+    </tbody>
+</table>

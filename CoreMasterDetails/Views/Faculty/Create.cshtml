@@ -1,0 +1,84 @@
+﻿@model CoreMasterDetails.Models.Faculty
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Faculty</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-controller="Faculty" method="post" enctype="multipart/form-data">
+            @Html.ValidationSummary()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FacultyName" class="control-label"></label>
+                <input asp-for="FacultyName" class="form-control" />
+                <span asp-validation-for="FacultyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseName" class="control-label"></label>
+                <input asp-for="CourseName" class="form-control" />
+                <span asp-validation-for="CourseName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseStartDate" class="control-label"></label>
+                <input asp-for="CourseStartDate" class="form-control" type="date"  />
+                <span asp-validation-for="CourseStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PicPath" class="control-label"></label>
+                <input type="file" name="Picture" accept="/images*" class="form-control" />
+                <span asp-validation-for="PicPath" class="text-danger"></span>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>StudentName</td>
+                        <td>Address</td>
+                        <td><input type="submit" value="ADD" name="btn" class="btn btn-success" /></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Students.Count; i++)
+                    {
+                        <tr>
+                            <td><input asp-for="Students[i].StudentName" class="form-control" /></td>
+                            <td><input asp-for="Students[i].Address" class="form-control" /></td>
+                            <td><input type="button" class="btn btn-danger" id="btnDelete" value="Delete" onclick="Remove(this)" /></td>
+                            @* <td>@Html.EditorFor(model => Model.Students[i].StudentName, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(model => Model.Students[i].Address, new { htmlAttributes = new { @class = "form-control" } })</td> *@
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="form-group mt-3">
+                <input type="submit"  value="Create" name="btn" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function Remove(e) {
+            e.closest("tr").remove();
+        }
+    </script>
+}
+
